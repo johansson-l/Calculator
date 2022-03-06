@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize an empty list
+        // Initialize an empty list to hold the input values
         var numberList = mutableListOf<Any>()
 
         // Button references
@@ -50,20 +50,22 @@ class MainActivity : AppCompatActivity() {
         nine.setOnClickListener { resultView.append(nine.text) }
         zero.setOnClickListener { resultView.append(zero.text) }
 
-        // TextView is erased when erase are pressed
-        erase.setOnClickListener {
-            resultView.text = ""
-        }
-        
+        // TextView is cleared when erase button is pressed
+        erase.setOnClickListener { resultView.text = "" }
+
+        // Stores the current numbers to list and adding + as an own index
         plus.setOnClickListener {
+            // Add the current value to list
             numberList.add(resultView.text)
+            // Adds + in next index
             numberList.add("+")
+            // Clear the TextView
             resultView.text =""
         }
 
-        equal.setOnClickListener {
-            numberList.add(resultView.text)
-        }
-
+        // Stores the current numbers to list and calculates the inputs in the list
+        equal.setOnClickListener { numberList.add(resultView.text) }
+        TODO("Calculate the indexes in the list")
+        for (x in numberList.indices)
     }
 }
