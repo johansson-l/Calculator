@@ -6,12 +6,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Initialize an empty list to hold the input values
-        var numberList = mutableListOf<Any>()
 
         // Button references
         val one: Button = findViewById(R.id.btn_one)
@@ -24,48 +22,81 @@ class MainActivity : AppCompatActivity() {
         val eight: Button = findViewById(R.id.btn_eight)
         val nine: Button = findViewById(R.id.btn_nine)
         val zero: Button = findViewById(R.id.btn_zero)
+
+        // Operator button references
         val equal: Button = findViewById(R.id.btn_equals)
         val plus: Button = findViewById(R.id.btn_plus)
         val minus: Button = findViewById(R.id.btn_minus)
         val divide: Button = findViewById(R.id.btn_divide)
         val multiply: Button = findViewById(R.id.btn_multiply)
-        val parentheses: Button = findViewById(R.id.btn_parentheses)
-        val erase: Button = findViewById(R.id.btn_erase)
+        val comma: Button = findViewById(R.id.btn_comma)
         val remainder: Button = findViewById(R.id.btn_remainder)
-        val invert: Button = findViewById(R.id.btn_invert)
-        val point: Button = findViewById(R.id.btn_point)
 
-        // TextView reference
-        val resultView: TextView = findViewById(R.id.result_view)
+        // Others
+        val erase: Button = findViewById(R.id.btn_erase)
 
-        // TextView is appended with the button number when clicked
-        one.setOnClickListener { resultView.append(one.text) }
-        two.setOnClickListener { resultView.append(two.text) }
-        three.setOnClickListener { resultView.append(three.text) }
-        four.setOnClickListener { resultView.append(four.text) }
-        five.setOnClickListener { resultView.append(five.text) }
-        six.setOnClickListener { resultView.append(six.text) }
-        seven.setOnClickListener { resultView.append(seven.text) }
-        eight.setOnClickListener { resultView.append(eight.text) }
-        nine.setOnClickListener { resultView.append(nine.text) }
-        zero.setOnClickListener { resultView.append(zero.text) }
+        // TextView references
+        val textViewCurrentNumber: TextView = findViewById(R.id.number_current)
+        val textViewHistoryText: TextView = findViewById(R.id.number_history)
 
-        // TextView is cleared when erase button is pressed
-        erase.setOnClickListener { resultView.text = "" }
+        // Number input references
+        val ZERO: String = "0"
+        val ONE: String = "1"
+        val TWO: String = "2"
+        val THREE: String = "3"
+        val FOUR: String = "4"
+        val FIVE: String = "5"
+        val SIX: String = "6"
+        val SEVEN: String = "7"
+        val EIGHT: String = "8"
+        val NINE: String = "9"
 
-        // Stores the current numbers to list and adding + as an own index
-        plus.setOnClickListener {
-            // Add the current value to list
-            numberList.add(resultView.text)
-            // Adds + in next index
-            numberList.add("+")
-            // Clear the TextView
-            resultView.text =""
+        // Operator input references
+        val PLUS: String = " + "
+        val MINUS: String = " - "
+        val DIVIDE: String = " / "
+        val MULTIPLY: String = " * "
+        val COMMA: String = "."
+        val REMAINDER: String = " % "
+        val EQUAL: String = " = "
+
+        fun onButtonClick(input: String) {
+            if (input == EQUAL) {
+                val result = evaluate(textViewCurrentNumber.text.toString())
+                textViewHistoryText.text = textViewCurrentNumber.text
+                textViewHistoryText.append(input)
+                textViewCurrentNumber.text = result
+
+            } else {
+                textViewCurrentNumber.append(input)
+            }
         }
 
-        // Stores the current numbers to list and calculates the inputs in the list
-        equal.setOnClickListener { numberList.add(resultView.text) }
-        TODO("Calculate the indexes in the list")
-        for (x in numberList.indices)
+        zero.setOnClickListener { onButtonClick(ZERO) }
+        one.setOnClickListener { onButtonClick(ONE) }
+        two.setOnClickListener { onButtonClick(TWO) }
+        three.setOnClickListener { onButtonClick(THREE) }
+        four.setOnClickListener { onButtonClick(FOUR) }
+        five.setOnClickListener { onButtonClick(FIVE) }
+        six.setOnClickListener { onButtonClick(SIX) }
+        seven.setOnClickListener { onButtonClick(SEVEN) }
+        eight.setOnClickListener { onButtonClick(EIGHT) }
+        nine.setOnClickListener { onButtonClick(NINE) }
+
+        // Operator listener
+        plus.setOnClickListener { onButtonClick(PLUS) }
+        minus.setOnClickListener { onButtonClick(MINUS) }
+        divide.setOnClickListener { onButtonClick(DIVIDE) }
+        multiply.setOnClickListener { onButtonClick(MULTIPLY) }
+        comma.setOnClickListener { onButtonClick(COMMA) }
+        remainder.setOnClickListener { onButtonClick(REMAINDER) }
+        equal.setOnClickListener { onButtonClick(EQUAL) }
+
+        // Others
+        erase.setOnClickListener {
+            textViewCurrentNumber.text = ""
+            textViewHistoryText.text = ""
+        }
+
     }
 }

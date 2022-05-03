@@ -22,4 +22,5 @@
     <string name="btn_remainder">%</string>
     <string name="btn_invert">+/-</string>
     <string name="result_view">""</string>
+    <string name="history_view">""</string>
 </resources>
